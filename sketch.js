@@ -34,7 +34,6 @@ function setup() {
     space = createSprite(width/2, height/2);
     space.addImage(spaceImg);
     space.scale = 12.0;
-    space.velocityX = -4;
 
     rocket = createSprite(100, height/2, 10, 10);
     rocket.addAnimation("straight", rocketStraight);
@@ -72,6 +71,7 @@ function draw() {
     }
     if(gameState === "play"){
         background(0);
+        space.velocityX = -4;
 
         fly.play();
 
@@ -120,7 +120,7 @@ function draw() {
 
         noStroke();
         textSize(15);
-        text("All the best next time!!", width/2-85, height/2-100);
+        text("All the best next time!!", width/2-90, height/2-100);
 
         fill("green");
         textSize(18);
@@ -141,7 +141,7 @@ function spawnMeteors(){
         meteor = createSprite(width+10, random(20, height-20), 10, 10);
         meteor.addImage(meteorImg);
         meteor.scale = random(0.2, 0.5);
-        meteor.velocityX = -(9+score/500);
+        meteor.velocityX = -(9+score/200);
         meteor.lifetime = 170;
 
         meteorsGroup.add(meteor);
