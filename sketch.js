@@ -81,6 +81,9 @@ function draw() {
             space.x = width/2;
         }
 
+        createEdgeSprites();
+        rocket.collide(edges);
+
         rocket.changeAnimation("straight");
         if(keyDown("up")){
             rocket.addAnimation("up", rocketUp);
