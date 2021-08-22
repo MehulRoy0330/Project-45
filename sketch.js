@@ -30,35 +30,38 @@ function setup() {
 }
 
 function draw() {
-    background(0);
+    
+    if(gameState === "play"){
+        background(0);
 
-    spawnMeteors();
+        spawnMeteors();
 
-    if(space.x < 0){
-        space.x = width/2;
+        if(space.x < 0){
+            space.x = width/2;
+        }
+
+        rocket.changeAnimation("straight");
+        if(keyDown("up")){
+            rocket.addAnimation("up", rocketUp);
+            rocket.changeAnimation("up");
+
+            rocket.y -= 10;
+        }
+        if(keyDown("down")){
+            rocket.addAnimation("down", rocketDown);
+            rocket.changeAnimation("down");
+
+            rocket.y +=10;
+        }
+
+        drawSprites();
+
+        noStroke();
+        fill("white");
+        textSize(15);
+        text("Score: "+score, width-100, 50);
+        score += Math.round(getFrameRate()/60);
     }
-
-    rocket.changeAnimation("straight");
-    if(keyDown("up")){
-        rocket.addAnimation("up", rocketUp);
-        rocket.changeAnimation("up");
-
-        rocket.y -= 10;
-    }
-    if(keyDown("down")){
-        rocket.addAnimation("down", rocketDown);
-        rocket.changeAnimation("down");
-
-        rocket.y +=10;
-    }
-
-    drawSprites();
-
-    noStroke();
-    fill("white");
-    textSize(15);
-    text("Score: "+score, width-100, 50);
-    score += Math.round(getFrameRate()/60);
 }
 
 function spawnMeteors(){
