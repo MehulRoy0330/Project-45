@@ -8,6 +8,8 @@ var gameState = "start";
 
 var score = 0;
 
+var meteorsGroup;
+
 function preload(){
     rocketUp = loadAnimation("imgs/rocket-up.png");
     rocketDown = loadAnimation("imgs/rocket-down.png");
@@ -17,6 +19,8 @@ function preload(){
     spaceImg = loadImage("imgs/space.png");
 
     gameImg = loadImage("imgs/gameImg.png");
+
+    meteorsGroup = createGroup();
 }
 
 function setup() {
@@ -84,6 +88,10 @@ function draw() {
             rocket.y +=10;
         }
 
+        if(meteorsGroup.isTouching(rocket)){
+            gameState = "end";
+        }
+
         drawSprites();
 
         noStroke();
@@ -91,6 +99,30 @@ function draw() {
         textSize(15);
         text("Score: "+score, width-100, 50);
         score += Math.round(getFrameRate()/60);
+    }
+    if(gameState === "end"){
+        background("cyan");
+
+        stroke("black");
+        fill("black");
+        textSize(30);
+        text("Game over", width/2-90, height/2-150);
+
+        noStroke();
+        textSize(15);
+        text("All the best next time!!", width/2-85, height/2-100);
+
+        fill("green");
+        textSize(18);
+        text("Score: "+score, width/2-50, height/2);
+
+        fill("red");
+        textSize(20);
+        text("Press space to restart", width/2-110, height/2+100);
+
+        if(keyDown("space")){
+            reset();
+        }
     }
 }
 
@@ -101,5 +133,15 @@ function spawnMeteors(){
         meteor.scale = random(0.2, 0.5);
         meteor.velocityX = -(9+score/500);
         meteor.lifetime = 170;
+
+        meteorsGroup.add(meteor);
     }
+}
+
+function reset(){
+    gameState = "play";
+    meteorsGroup.destroyEach();
+    score = 0;
+    rocket.y = height/2;
+    rocket.changeAnimation("straight");
 }
