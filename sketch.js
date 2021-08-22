@@ -32,6 +32,8 @@ function setup() {
 function draw() {
     background(0);
 
+    spawnMeteors();
+
     if(space.x < 0){
         space.x = width/2;
     }
@@ -51,4 +53,20 @@ function draw() {
     }
 
     drawSprites();
+
+    noStroke();
+    fill("white");
+    textSize(15);
+    text("Score: "+score, width-100, 50);
+    score += Math.round(getFrameRate()/60);
+}
+
+function spawnMeteors(){
+    if(frameCount%90 === 0){
+        meteor = createSprite(width+10, random(20, height-20), 10, 10);
+        meteor.addImage(meteorImg);
+        meteor.scale = random(0.2, 0.5);
+        meteor.velocityX = -(9+score/500);
+        meteor.lifetime = 170;
+    }
 }
