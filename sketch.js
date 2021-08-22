@@ -10,6 +10,8 @@ var score = 0;
 
 var meteorsGroup;
 
+var fly, crash;
+
 function preload(){
     rocketUp = loadAnimation("imgs/rocket-up.png");
     rocketDown = loadAnimation("imgs/rocket-down.png");
@@ -21,6 +23,9 @@ function preload(){
     gameImg = loadImage("imgs/gameImg.png");
 
     meteorsGroup = createGroup();
+
+    fly = loadSound("sfx/fly.mp3");
+    crash = loadSound("sfx/crash.mp3");
 }
 
 function setup() {
@@ -68,6 +73,8 @@ function draw() {
     if(gameState === "play"){
         background(0);
 
+        fly.play();
+
         spawnMeteors();
 
         if(space.x < 0){
@@ -90,6 +97,9 @@ function draw() {
 
         if(meteorsGroup.isTouching(rocket)){
             gameState = "end";
+
+            fly.stop();
+            crash.play();
         }
 
         drawSprites();
