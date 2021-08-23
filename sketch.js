@@ -12,6 +12,8 @@ var meteorsGroup;
 
 var fly, crash;
 
+var edges;
+
 function preload() {
   rocketUp = loadAnimation("imgs/rocket-up.png");
   rocketDown = loadAnimation("imgs/rocket-down.png");
@@ -88,8 +90,9 @@ function draw() {
       space.x = width / 2;
     }
 
-    createEdgeSprites();
-    rocket.collide(edges);
+    edges = createEdgeSprites();
+    rocket.collide(edges[2]);
+    rocket.collide(edges[3])
 
     rocket.changeAnimation("straight");
     if (keyDown("up")) {
