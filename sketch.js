@@ -88,10 +88,20 @@ function draw() {
       space.x = width / 2;
     }
 
+<<<<<<< HEAD
     rocket.changeAnimation("straight");
     if (keyDown("up")) {
       rocket.addAnimation("up", rocketUp);
       rocket.changeAnimation("up");
+=======
+        createEdgeSprites();
+        rocket.collide(edges);
+
+        rocket.changeAnimation("straight");
+        if(keyDown("up")){
+            rocket.addAnimation("up", rocketUp);
+            rocket.changeAnimation("up");
+>>>>>>> f3b4daa59f1297b457bd88efdb0537e8c981d63a
 
       rocket.y -= 10;
     }
